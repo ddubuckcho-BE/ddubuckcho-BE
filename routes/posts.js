@@ -13,8 +13,13 @@ router.post('/post', authMiddleware, controller.makePosts);
 router.get('/detail/:postId', controller.detailPosts);
 
 // 게시물 수정하기를 들어갈 수 있는 권한 확기 (수정)
-router.get('/detail/:postId', authMiddleware, controller.goModifyPosts);
+router.get('/detail/gomodify/:postId', authMiddleware, controller.goModifyPosts);
 
 // 게시물 수정하기 완료 버튼을 눌렀을 때
+router.put('/update/:postId', authMiddleware, controller.modifyPosts);
+
+// 게시물 삭제하기 
+router.put('/delete/:postId', authMiddleware, controller.deletePosts);
+
 
 module.exports = router;
