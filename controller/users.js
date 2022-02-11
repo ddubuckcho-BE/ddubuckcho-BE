@@ -7,7 +7,7 @@ const signupSchema = Joi.object({
   loginId: Joi.string().alphanum().min(6).required(),
   password: Joi.string().min(6).required(),
   confirmPassword: Joi.string().min(6).required(),
-  name: required(),
+  name: Joi.required(),
 });
 
 // 회원가입
