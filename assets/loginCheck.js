@@ -3,7 +3,7 @@
 function getSelf(callback) {
   $.ajax({
     type: 'GET',
-    url: '/users/me',
+    url: '/api/auth',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },

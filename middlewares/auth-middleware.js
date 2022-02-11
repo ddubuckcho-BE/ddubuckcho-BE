@@ -17,9 +17,9 @@ module.exports = (req, res, next) => {
     const { loginId } = jwt.verify(tokenValue, tokenKey); // 디코드에서 loginId 값만 암호화했으니
     Users.findById(loginId)
       .exec()
-      .then((loginId) => {
+      .then((user) => {
         // async가 아니기 때문에 then으로
-        res.locals.loginId = loginId; // locals는 나중에 소멸
+        res.locals.user = user; // locals는 나중에 소멸
         next(); // 이 경우 에만 next를 허용 / next 안하면 미들웨어에서 에러처리에 걸림
       });
     // 원래는 유저가 없는 것도 가정해야함
