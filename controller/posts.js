@@ -1,10 +1,10 @@
 const Posts = require('../models/posts');
 
-// 메인페이지로 줄 정보 (게시물 목록) - 50완
+// 메인페이지로 줄 정보 (게시물 전체) - 50완
 module.exports.getPosts = async (req, res) => {
   const posts = await Posts.find().exec();
-  const sortByLike = posts.sort((a, b) => b.id - a.id);
-  const sortByNew = posts.sort((a, b) => b.like_count - a.like_count);
+  const sortByNew = posts.sort((a, b) => b.id - a.id);
+  const sortByLike = posts.sort((a, b) => b.like_count - a.like_count);
 
   res.json({
     sortByLike,
