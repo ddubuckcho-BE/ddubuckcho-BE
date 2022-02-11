@@ -6,6 +6,8 @@ const port = 3000;
 connect();
 
 const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
+
 // const postsRouter = require('./routes/posts');
 
 const requestMiddleware = (req, res, next) => {
@@ -18,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors()); // 빈칸으로 두면 모든 요청 허용
 app.use(requestMiddleware);
 
-app.use('/api/users', usersRouter);
+app.use('/api', [usersRouter,postsRouter]);
 // app.use('/api/posts', postsRouter);
 
 app.listen(port, () => {
