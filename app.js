@@ -1,12 +1,12 @@
-const express = require('express');
-const connect = require('./models');
-const cors = require('cors');
+const express = require("express");
+const connect = require("./models");
+const cors = require("cors");
 const app = express();
 const port = 3000;
 connect();
 
-const usersRouter = require('./routes/users');
-const postsRouter = require('./routes/posts');
+const usersRouter = require("./routes/users");
+const postsRouter = require("./routes/posts");
 
 const requestMiddleware = (req, res, next) => {
   console.log('Request URL:', req.originalUrl, ' - ', new Date());
