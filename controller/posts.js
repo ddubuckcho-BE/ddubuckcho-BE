@@ -1,11 +1,10 @@
-const express = require('express');
 const Posts = require('../models/posts');
 
-// 메인페이지로 줄 정보 (게시물 목록) - 50완
+// 메인페이지로 줄 정보 (게시물 전체) - 50완
 module.exports.getPosts = async (req, res) => {
   const posts = await Posts.find().exec();
-  const sortByLike = posts.sort((a, b) => b.id - a.id);
-  const sortByNew = posts.sort((a, b) => b.like_count - a.like_count);
+  const sortByNew = posts.sort((a, b) => b.id - a.id);
+  const sortByLike = posts.sort((a, b) => b.like_count - a.like_count);
 
   res.json({
     sortByLike,
@@ -62,29 +61,34 @@ module.exports.goModifyPosts = async (req, res) => {
 
 // 게시물 수정 (수정완료 버튼을 누럿을 때)
 module.exports.modifyPosts = async (req, res) => {
-  const { detailId } = req.params;
+  const { postId } = req.params;
   const { user } = res.locals;
-  const { comment, title, date } = req.body;
+  const { title, thumbnail, contents } = req.body;
 
-  const existsarticle = await Articles.findOne({ id: Number(detailId) });
+  const post = await Posts.findOne({ id: Number(postId) });
 
-  if (existsarticle.nickname === user.nickname) {
-    await Articles.updateOne(
-      { id: Number(detailId) },
-      { $set: { comment, title, date } }
+  if (post.loginId === user.loginId) {
+    await Posts.updateOne(
+      { id: Number(postId) },
+      { $set: { contents, title, thumbnail } }
     );
 
-    res.json({ result: 'success' });
+    res.json({ ok: 'true' });
+  } else {
+    res.json({ ok: 'false' });
   }
 };
 
-// 게시물 삭제
+// 게시물 삭제하기
 module.exports.deletePosts = async (req, res) => {
-  const { detailId } = req.params;
+  const { postId } = req.params;
+  const { user } = res.locals;
 
-  const articles = await Articles.findOne({ id: Number(detailId) });
-
-  res.json({
-    articles,
-  });
+  const post = await Articles.findOne({ id: Number(postId) });
+  if (post.loginId === user.loginId) {
+    await Articles.deleteOne({ id: Number(postId) });
+    res.json({ ok: 'true' });
+  } else {
+    res.json({ ok: 'false' });
+  }
 };
