@@ -78,6 +78,7 @@ const login = async (req, res) => {
   }
 };
 
+// 로그인 확인
 const auth = async (req, res) => {
   const { name } = res.locals;
   res.json({
