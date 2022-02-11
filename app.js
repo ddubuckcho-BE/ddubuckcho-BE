@@ -9,9 +9,9 @@ const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 
 const requestMiddleware = (req, res, next) => {
-    console.log('Request URL:', req.originalUrl, ' - ', new Date());
-    next();
-  };
+  console.log('Request URL:', req.originalUrl, ' - ', new Date());
+  next();
+};
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -21,5 +21,5 @@ app.use(requestMiddleware);
 app.use('/api', [usersRouter, postsRouter]);
 
 app.listen(port, () => {
-    console.log(port, '포트로 서버가 켜졌습니다.')
+  console.log(port, '포트로 서버가 켜졌습니다.');
 });
