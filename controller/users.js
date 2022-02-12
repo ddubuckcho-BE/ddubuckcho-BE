@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const Users = require('../models/users');
-const { tokenKey } = require('../middlewares/tokenKey');
 
 const signupSchema = Joi.object({
   loginId: Joi.string().alphanum().min(6).required(),
@@ -21,15 +20,18 @@ const signup = async (req, res) => {
       });
       return;
     }
+
     const existId = await Users.find({ loginId });
-    if (existId) {
+    console.log(existId)
+    if (existId.length) {
       res.status(400).send({
-        message: '이미 가입된 아이디입니다.',
+        message: '이미 가입된 아이디입니다.', 
       });
       return;
     }
+
     const existName = await Users.find({ name });
-    if (existName) {
+    if (existName.length) {
       res.status(400).send({
         message: '이미 가입된 이름입니다.',
       });
@@ -63,9 +65,12 @@ const login = async (req, res) => {
       });
       return;
     }
-    const token = jwt.sign({ loginId: user.loginId }, tokenKey);
+    const token = jwt.sign({ loginId: user.loginId }, process.env.TOKENKEY);
+    const name = user.name
+    console.log(name)
     res.json({
       token,
+      name,
       ok: true,
       message: '로그인 성공',
     });

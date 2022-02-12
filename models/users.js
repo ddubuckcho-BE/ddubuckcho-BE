@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const UserSchema = new mongoose.Schema({
   loginId: String,
   password: String,
-  passwordConfirm: String,
+  confirmPassword: String,
   name: String,
 });
 
