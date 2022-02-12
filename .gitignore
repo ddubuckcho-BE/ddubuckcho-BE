@@ -1,3 +1,4 @@
 node_modules
-
+/middlewares/tokenKey.js
+test
 .env
