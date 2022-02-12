@@ -4,7 +4,7 @@ const authMiddleware = require("../middlewares/auth-middleware");
 const controller = require("../controller/posts");
 
 // 게시물 모두 보여주기 (메인페이지)
-router.get("/post_list", controller.getPosts);
+router.get("/", controller.getPosts);
 
 // 게시물 생성
 router.post("/post", authMiddleware, controller.makePosts);
