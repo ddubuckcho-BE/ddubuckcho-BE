@@ -20,6 +20,7 @@ const signup = async (req, res) => {
       });
       return;
     }
+
     const existId = await Users.find({ loginId });
     console.log(existId)
     if (existId.length) {
@@ -28,6 +29,7 @@ const signup = async (req, res) => {
       });
       return;
     }
+
     const existName = await Users.find({ name });
     if (existName.length) {
       res.status(400).send({
