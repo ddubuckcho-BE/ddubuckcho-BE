@@ -20,7 +20,6 @@ app.use(cors()); // 빈칸으로 두면 모든 요청 허용
 app.use(requestMiddleware);
 
 app.use('/api', [usersRouter, postsRouter]);
-app.use(express.static('test'));
 
 app.listen(port, () => {
     console.log(port, '포트로 서버가 켜졌습니다.')
