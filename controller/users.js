@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const Users = require('../models/users');
-const { tokenKey } = require('../middlewares/tokenKey');
 
 const signupSchema = Joi.object({
   loginId: Joi.string().alphanum().min(6).required(),
@@ -64,7 +63,7 @@ const login = async (req, res) => {
       });
       return;
     }
-    const token = jwt.sign({ loginId: user.loginId }, tokenKey);
+    const token = jwt.sign({ loginId: user.loginId }, process.env.TOKENKEY);
     const name = user.name
     console.log(name)
     res.json({
