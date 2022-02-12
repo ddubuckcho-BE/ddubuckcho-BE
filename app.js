@@ -13,6 +13,7 @@ const requestMiddleware = (req, res, next) => {
     next();
   };
 
+app.use(express.static("assets"))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors()); // 빈칸으로 두면 모든 요청 허용

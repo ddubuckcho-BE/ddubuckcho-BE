@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함께 쓰는 항해 블로그</title>
+
+    <!-- 파일업로드 코드 -->
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!--font-->
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
+</head>
+<style>
+    * {
+        font-family: 'Sunflower', sans-serif;
+        font-size: 13px;
+    }
+
+    .title_warp {
+        height: 200px;
+        background-color: royalblue;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 40px;
+        color: white;
+        padding-top: 70px;
+    }
+
+    .button {
+        float: right;
+        padding-right: 20px;
+        padding-bottom: 10px;
+    }
+
+    .sortByLikeList {
+        width: 1200px;
+        padding-top: 50px;
+        margin: auto;
+    }
+    .sortByNewList {
+        width: 1200px;
+        padding-top: 50px;
+        margin: auto;
+    }
+
+</style>
+<script>
+
+$(document).ready(function() {
+        getArticles();
+        });
+    // 게시글 불러오기
+    function getArticles() {
+        $.ajax({
+            type: "GET",
+            url: "/api/post_list",
+            data: {},
+            success: function (response) {
+                let sortByLike = response["sortByLike"];
+                let sortByNew = response["sortByNew"];
+
+                for (let item in sortByLike) {
+                    let userId = sortByLike[item].userId;
+                    let title = sortByLike[item].title;
+                    let contents = sortByLike[item].contents;
+                    let thumbnail = sortByLike[item].thumbnail;
+                    let like_count = sortByLike[item].like_count;
+                    let is_like = sortByLike[item].is_like;
+
+                    let temp_html = `<tr>
+                                        <th scope="col">${userId}</th>
+                                        <th scope="col">${title}</th>
+                                        <th scope="col">${contents}</th>
+                                        <th scope="col">${thumbnail}</th>
+                                        <th scope="col">${like_count}</th>
+                                        <th scope="col">${is_like}</th>
+                                    </tr>`
+                    $("#sortByLikeBox").append(temp_html);
+                }
+                    for (let item in sortByNew) {
+                    let userId = sortByNew[item].userId;
+                    let title = sortByNew[item].title;
+                    let contents = sortByNew[item].contents;
+                    let thumbnail = sortByNew[item].thumbnail;
+                    let like_count = sortByNew[item].like_count;
+                    let is_like = sortByNew[item].is_like;
+
+                    let temp_html = `<tr>
+                                        <th scope="col">${userId}</th>
+                                        <th scope="col">${title}</th>
+                                        <th scope="col">${contents}</th>
+                                        <th scope="col">${thumbnail}</th>
+                                        <th scope="col">${like_count}</th>
+                                        <th scope="col">${is_like}</th>
+                                    </tr>`
+                    $("#sortByNewBox").append(temp_html);
+                }
+                for (let item in sortByNew) {
+                    let title = sortByNew[item].title;
+                    let contents = sortByNew[item].contents;
+                    let thumbnail = sortByNew[item].thumbnail;
+
+                    let temp_html = `<div class="card">
+                                            <img src="${thumbnail}" class="card-img-top">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${title}</h5>
+                                                <p class="card-text">${contents}</p>
+                                            </div>
+                                        </div>`
+                    $('#cards-box').append(temp_html)
+                }
+            }
+        })
+    };
+
+
+</script>
+
+<body>
+    <form class="title_warp">
+        <h2 class="title">메인 테스트 사이트</h2>
+    </form> <br>
+    <div class="button">
+        <div id="getTwoButton"></div>
+    </div>
+    
+    <section>
+        <div class="sortByLikeList">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">userId</th>
+                        <th scope="col">title</th>
+                        <th scope="col">contents</th>
+                        <th scope="col">thumbnail</th>
+                        <th scope="col">like_count</th>                        
+                        <th scope="col">is_like</th>
+                    </tr>
+                </thead>
+                <tbody id="sortByLikeBox">
+                </tbody>
+            </table>
+        </div>
+        <div class="sortByNewList">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">userId</th>
+                        <th scope="col">title</th>
+                        <th scope="col">contents</th>
+                        <th scope="col">thumbnail</th>
+                        <th scope="col">like_count</th>                        
+                        <th scope="col">is_like</th>
+                    </tr>
+                </thead>
+                <tbody id="sortByNewBox">
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+    <form action="/api/post" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+          <input type="file" class="form-control-file" name="userfile">
+          <input type="text" class="form-control" placeholder="제목" name="title">
+          <input type="text" class="form-control" placeholder="내용" name="contents">
+          <input type="submit" value="작성완료!" class="btn btn-default">            
+        </div>
+      </form>
+
+      <div class="card-columns" id="cards-box">
+    </div>
+</body>
+
+</html>
