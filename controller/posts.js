@@ -2,9 +2,11 @@ const Posts = require('../models/posts');
 
 // 메인페이지로 줄 정보 (게시물 전체) - 50완
 module.exports.getPosts = async (req, res) => {
-  const posts = await Posts.find().exec();
-  const sortByNew = posts.sort((a, b) => b.id - a.id);
-  const sortByLike = posts.sort((a, b) => b.like_count - a.like_count);
+  const sortByLike = await Posts.find().sort('-like_count').exec();
+  const sortByNew = await Posts.find().sort('-id').exec();
+  
+  console.log(sortByNew)
+  console.log(sortByNew[0].id)
 
   res.json({
     sortByLike,
@@ -15,11 +17,13 @@ module.exports.getPosts = async (req, res) => {
 // 새로운 게시물 생성 (db에 저장) - id가 어떤 변수 명으로 저장되는지 찾아야함
 module.exports.makePosts = async (req, res) => {
   try {
-    const { user } = res.locals;
-    const { title, thumbnail, contents } = req.body;
+    // const { user } = res.locals;
+    const { title, contents } = req.body;
+    const thumbnail = `/images/${req.file.filename}`;
+    console.log(thumbnail)
 
     await Posts.create({
-      loginId: user.loginId,
+      // loginId: user.loginId,
       thumbnail,
       contents,
       title,
