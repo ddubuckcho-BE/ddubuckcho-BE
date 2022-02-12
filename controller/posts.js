@@ -5,8 +5,6 @@ module.exports.getPosts = async (req, res) => {
   const sortByLike = await Posts.find().sort('-like_count').exec();
   const sortByNew = await Posts.find().sort('-id').exec();
   
-  console.log(sortByNew)
-  console.log(sortByNew[0].id)
 
   res.json({
     sortByLike,
