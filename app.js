@@ -20,6 +20,9 @@ app.use(requestMiddleware);
 
 app.use('/api', [usersRouter, postsRouter]);
 
+//정적파일 사용
+app.use(express.static('test'));
+
 app.listen(port, () => {
     console.log(port, '포트로 서버가 켜졌습니다.')
 });
