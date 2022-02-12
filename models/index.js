@@ -6,7 +6,7 @@ const connect = () => {
       ignoreUndefined: true,
     })
     .catch((error) => {
-      console.error(err);
+      console.error(error);
     });
 };
 
