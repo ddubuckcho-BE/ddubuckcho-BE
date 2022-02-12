@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
     return;
   }
   try {
-    const { loginId } = jwt.verify(tokenValue, tokenKey); // 디코드에서 loginId 값만 암호화했으니
+    const { loginId } = jwt.verify(tokenValue, process.env.TOKENKEY); // 디코드에서 loginId 값만 암호화했으니
     Users.findById(loginId)
       .exec()
       .then((user) => {

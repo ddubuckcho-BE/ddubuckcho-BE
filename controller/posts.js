@@ -21,12 +21,15 @@ module.exports.makePosts = async (req, res) => {
     const { title, contents } = req.body;
     const thumbnail = `/images/${req.file.filename}`;
     console.log(thumbnail)
-
+    
     await Posts.create({
       // loginId: user.loginId,
       thumbnail,
       contents,
       title,
+      like_count : 0, 
+      is_like : 'false',
+      like_id : []
     });
 
     res.json({ ok: 'true' });

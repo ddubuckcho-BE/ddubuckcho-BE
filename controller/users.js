@@ -21,14 +21,14 @@ const signup = async (req, res) => {
       });
       return;
     }
-    const existId = await Users.find({ loginId });
+    const existId = await Users.findOne({ loginId });
     if (existId) {
       res.status(400).send({
         message: '이미 가입된 아이디입니다.',
       });
       return;
     }
-    const existName = await Users.find({ name });
+    const existName = await Users.findOne({ name });
     if (existName) {
       res.status(400).send({
         message: '이미 가입된 이름입니다.',
