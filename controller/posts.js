@@ -45,7 +45,7 @@ module.exports.makePosts = async (req, res) => {
     const { user } = res.locals;
     const { title, contents } = req.body;
     const thumbnail = `/images/${req.file.filename}`;
-    console.log(thumbnail)
+    
     
     await Posts.create({
       loginId: user.loginId,
