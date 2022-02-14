@@ -8,6 +8,7 @@ connect();
 
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
+const commentsRouter = require('./routes/comments');
 
 const requestMiddleware = (req, res, next) => {
     console.log('Request URL:', req.originalUrl, ' - ', new Date());
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors()); // 빈칸으로 두면 모든 요청 허용
 app.use(requestMiddleware);
 
-app.use('/api', [usersRouter, postsRouter]);
+app.use('/api', [usersRouter, postsRouter, commentsRouter]);
 
 app.listen(port, () => {
     console.log(port, '포트로 서버가 켜졌습니다.')
