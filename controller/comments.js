@@ -38,7 +38,7 @@ const modifyComment = async (req, res) => {
     try {
         const { commentId } = req.params;
         const { comment } = req.body;
-        await Comment.updateOne({ commentId }, { $set: { comment }});
+        await Comments.updateOne({ commentId }, { $set: { comment }});
         res.status(200).send({ ok: 'true' })
     } catch (error) {
         res.status(400).json({ ok: 'false' })
