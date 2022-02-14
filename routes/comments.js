@@ -8,7 +8,7 @@ const { makeComment, getComments, modifyComment, deleteComment } = require('../c
 router.post("/make_comment", authMiddleware, makeComment);
 
 // 코멘트 불러오기
-router.get("/comments", authMiddleware,getComments);
+router.get("/comments/:id", getComments);
 
 // 코멘트 수정
 router.put("/update/:commentId", authMiddleware, modifyComment);
