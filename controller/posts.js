@@ -119,7 +119,7 @@ module.exports.deletePosts = async (req, res) => {
 
   const post = await Posts.findOne({ id: Number(postId) });
   if (post.loginId === user.loginId) {
-    await Articles.deleteOne({ id: Number(postId) });
+    await Posts.deleteOne({ id: Number(postId) });
     res.json({ ok: 'true' });
   } else {
     res.json({ ok: 'false' });
