@@ -67,7 +67,7 @@ module.exports.modifyPosts = async (req, res) => {
   const { postId } = req.params;
   const { user } = res.locals;
   const { title, contents } = req.body;
-  if (req.files === undefined) {
+  if (req.files === null) {
     const post = await Posts.findOne({ id: Number(postId) });
 
     if (post.loginId === user.loginId) {
