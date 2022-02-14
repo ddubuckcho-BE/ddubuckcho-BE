@@ -11,7 +11,7 @@ const makeComment = async (req, res) => {
     try {
         const { id, comment } = await commentSchema.validateAsync(req.body);
         const name = res.locals.user.name
-        await comments.create({
+        await Comments.create({
             id,
             name,
             comment
