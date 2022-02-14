@@ -70,7 +70,7 @@ module.exports.goModifyPosts = async (req, res) => {
 module.exports.modifyPosts = async (req, res) => {
   const { postId } = req.params;
   const { user } = res.locals;
-  const thumbnail = `/images/${req.file.filename}`
+  const thumbnail = `/images/${req.files[0].filename}`
   const { title, contents } = req.body;
 
   const post = await Posts.findOne({ id: Number(postId) });
