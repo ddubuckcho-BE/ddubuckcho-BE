@@ -3,7 +3,7 @@ const Joi = require('joi');
 
 const commentSchema = Joi.object({
     id: Joi.required(),
-    comment: Joi.string(),required()
+    comment: Joi.string().required()
 });
 
 // 코멘트 작성
