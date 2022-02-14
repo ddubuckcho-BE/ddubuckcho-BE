@@ -18,7 +18,7 @@ const controller = require("../controller/posts");
 router.get("/post_list", controller.getPosts);
 
 // 게시물 생성
-router.post("/post", /*authMiddleware*/ upload.single('thumbnail'), controller.makePosts);
+router.post("/post", authMiddleware, upload.single('thumbnail'), controller.makePosts);
 
 // 게시물 상세페이지
 router.get("/detail/:postId", controller.detailPosts)
