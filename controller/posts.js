@@ -69,7 +69,7 @@ module.exports.goModifyPosts = async (req, res) => {
 module.exports.modifyPosts = async (req, res) => {
   const { postId } = req.params;
   const { user } = res.locals;
-  // const thumbnail = `/images/${req.file.filename}`
+  const thumbnail = `/images/${req.files[0].filename}`
   const { title, contents } = req.body;
 
   const post = await Posts.findOne({ id: Number(postId) });
@@ -77,7 +77,7 @@ module.exports.modifyPosts = async (req, res) => {
   if (post.loginId === user.loginId) {
     await Posts.updateOne(
       { id: Number(postId) },
-      { $set: { contents, title} }
+      { $set: { contents, title, thumbnail} }
     );
 
     res.json({ ok: 'true' });

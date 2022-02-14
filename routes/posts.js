@@ -26,17 +26,8 @@ router.get("/detail/:postId", controller.detailPosts)
 // 게시물 수정하기를 들어갈 수 있는 권한 확기 (수정)
 router.get("/detail/gomodify/:postId", authMiddleware, controller.goModifyPosts)
 
-// const _storage2 = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "./assets/images");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, +Date.now()+'-'+file.originalname);
-//   }
-// })
-// const upload2 = multer({ storage: _storage2})
-// // 게시물 수정하기 완료 버튼을 눌렀을 때
-router.put("/update/:postId", authMiddleware, /*upload2.single('editThumbnail')*/ controller.modifyPosts)
+// 게시물 수정하기 완료 버튼을 눌렀을 때
+router.put("/update/:postId", authMiddleware, upload.array('editThumbnail'), controller.modifyPosts)
 
 // 게시물 삭제하기
 router.delete("/delete/:postId", authMiddleware, controller.deletePosts)
