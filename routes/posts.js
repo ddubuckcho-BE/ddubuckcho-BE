@@ -18,7 +18,7 @@ const controller = require("../controller/posts");
 router.get("/post_list", controller.getPosts);
 
 // 게시물 생성
-router.post("/post", authMiddleware, upload.single('thumbnaill'), controller.makePosts);
+router.post("/post", authMiddleware, upload.single('thumbnail'), controller.makePosts);
 
 // 게시물 상세페이지
 router.get("/detail/:postId", controller.detailPosts)
@@ -27,7 +27,7 @@ router.get("/detail/:postId", controller.detailPosts)
 router.get("/detail/gomodify/:postId", authMiddleware, controller.goModifyPosts)
 
 // 게시물 수정하기 완료 버튼을 눌렀을 때
-router.put("update/:postId", authMiddleware, controller.modifyPosts)
+router.put("update/:postId", authMiddleware, upload.single('thumbnail'), controller.modifyPosts)
 
 // 게시물 삭제하기
 router.delete("delete/:postId", authMiddleware, controller.deletePosts)

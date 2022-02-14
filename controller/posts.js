@@ -12,10 +12,37 @@ module.exports.getPosts = async (req, res) => {
   });
 };
 
+// 좋아요 기능 (좋아요 추가)
+module.exports.getLike = async (req, res) => {
+  try {
+    const { user } = res.locals;
+    const loginId = user.loginId;
+    const { postId } = req.params;
+
+      await Posts.updateOne({ id: Number(postId) }, { $set: { like_id } } );
+      
+     
+
+  } catch (error) {
+    
+  }
+
+}
+
+module.exports.deleteLike = async (req, res) => {
+  try {
+    const { }
+  } catch (error) {
+    
+  }
+
+}
+   
+
 // 새로운 게시물 생성 (db에 저장) - id가 어떤 변수 명으로 저장되는지 찾아야함
 module.exports.makePosts = async (req, res) => {
   try {
-    const {user}   = res.locals;
+    const { user } = res.locals;
     const { title, contents } = req.body;
     const thumbnail = `/images/${req.file.filename}`;
     
@@ -50,7 +77,7 @@ module.exports.detailPosts = async (req, res) => {
 module.exports.goModifyPosts = async (req, res) => {
   const { user } = res.locals;
   const { postId } = req.params;
-
+  
   const post = await Posts.findOne({ id: Number(postId) });
 
   if (post.loginId === user.loginId) {
@@ -68,7 +95,8 @@ module.exports.goModifyPosts = async (req, res) => {
 module.exports.modifyPosts = async (req, res) => {
   const { postId } = req.params;
   const { user } = res.locals;
-  const { title, thumbnail, contents } = req.body;
+  const thumbnail = `/images/${req.file.filename}`
+  const { title, contents } = req.body;
 
   const post = await Posts.findOne({ id: Number(postId) });
 
@@ -89,7 +117,7 @@ module.exports.deletePosts = async (req, res) => {
   const { postId } = req.params;
   const { user } = res.locals;
 
-  const post = await Articles.findOne({ id: Number(postId) });
+  const post = await Posts.findOne({ id: Number(postId) });
   if (post.loginId === user.loginId) {
     await Articles.deleteOne({ id: Number(postId) });
     res.json({ ok: 'true' });
