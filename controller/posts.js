@@ -4,7 +4,6 @@ const Posts = require('../models/posts');
 module.exports.getPosts = async (req, res) => {
   const sortByLike = await Posts.find().sort('-like_count').exec();
   const sortByNew = await Posts.find().sort('-id').exec();
-  
 
   res.json({
     sortByLike,
@@ -12,23 +11,21 @@ module.exports.getPosts = async (req, res) => {
   });
 };
 
-   
-
 // 새로운 게시물 생성 (db에 저장) - id가 어떤 변수 명으로 저장되는지 찾아야함
 module.exports.makePosts = async (req, res) => {
   try {
     const { user } = res.locals;
     const { title, contents } = req.body;
     const thumbnail = `/images/${req.file.filename}`;
-    
+
     await Posts.create({
       loginId: user.loginId,
       thumbnail,
       contents,
       title,
-      like_count : 0, 
-      is_like : 'false',
-      like_id : []
+      like_count: 0,
+      is_like: 'false',
+      like_id: [],
     });
 
     res.json({ ok: 'true' });
@@ -51,7 +48,7 @@ module.exports.detailPosts = async (req, res) => {
 module.exports.goModifyPosts = async (req, res) => {
   const { user } = res.locals;
   const { postId } = req.params;
-  
+
   const post = await Posts.findOne({ id: Number(postId) });
 
   if (post.loginId === user.loginId) {
@@ -69,21 +66,36 @@ module.exports.goModifyPosts = async (req, res) => {
 module.exports.modifyPosts = async (req, res) => {
   const { postId } = req.params;
   const { user } = res.locals;
-  const thumbnail = `/images/${req.files[0].filename}`
   const { title, contents } = req.body;
+  if (req.files === undefined) {
+    const post = await Posts.findOne({ id: Number(postId) });
 
-  const post = await Posts.findOne({ id: Number(postId) });
+    if (post.loginId === user.loginId) {
+      await Posts.updateOne(
+        { id: Number(postId) },
+        { $set: { contents, title } }
+      );
 
-  if (post.loginId === user.loginId) {
-    await Posts.updateOne(
-      { id: Number(postId) },
-      { $set: { contents, title, thumbnail} }
-    );
-
-    res.json({ ok: 'true' });
+      res.json({ ok: 'true' });
+    } else {
+      res.json({ ok: 'false' });
+    }
   } else {
-    res.json({ ok: 'false' });
+    const thumbnail = `/images/${req.files[0].filename}`
+    const post = await Posts.findOne({ id: Number(postId) });
+
+    if (post.loginId === user.loginId) {
+      await Posts.updateOne(
+        { id: Number(postId) },
+        { $set: { contents, title, thumbnail } }
+      );
+
+      res.json({ ok: 'true' });
+    } else {
+      res.json({ ok: 'false' });
+    }
   }
+  
 };
 
 // 게시물 삭제하기
