@@ -12,31 +12,6 @@ module.exports.getPosts = async (req, res) => {
   });
 };
 
-// 좋아요 기능 (좋아요 추가)
-module.exports.getLike = async (req, res) => {
-  try {
-    const { user } = res.locals;
-    const loginId = user.loginId;
-    const { postId } = req.params;
-
-      await Posts.updateOne({ id: Number(postId) }, { $set: { like_id } } );
-      
-     
-
-  } catch (error) {
-    
-  }
-
-}
-
-module.exports.deleteLike = async (req, res) => {
-  try {
-    const { }
-  } catch (error) {
-    
-  }
-
-}
    
 
 // 새로운 게시물 생성 (db에 저장) - id가 어떤 변수 명으로 저장되는지 찾아야함
