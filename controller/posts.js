@@ -15,13 +15,13 @@ module.exports.getPosts = async (req, res) => {
 // 새로운 게시물 생성 (db에 저장) - id가 어떤 변수 명으로 저장되는지 찾아야함
 module.exports.makePosts = async (req, res) => {
   try {
-    // const { user } = res.locals;
+    const {user}   = res.locals;
     const { title, contents } = req.body;
     const thumbnail = `/images/${req.file.filename}`;
-    console.log(thumbnail)
+    
     
     await Posts.create({
-      // loginId: user.loginId,
+      loginId: user.loginId,
       thumbnail,
       contents,
       title,
