@@ -16,7 +16,7 @@ const makeComment = async (req, res) => {
             name,
             comment
         });
-        res.json({ ok: 'true' });
+        res.status(200).json({ ok: 'true' });
     } catch (error) {
         res.status(400).json({ ok: 'false' });
     }
@@ -27,7 +27,7 @@ const getComments = async (req, res) => {
     try {
         const { id } = req.params;
         const comments = await Comments.find({ id }).sort('-commentId').exec();
-        res.json({ comments });
+        res.status(200).json({ comments });
     } catch (error) {
         res.status(400).json({ ok: 'false' });
     }
@@ -50,7 +50,7 @@ const deleteComment = async (req, res) => {
     try {
         const { commentId } = req.params;
         await Comments.deleteOne({ commentId });
-        res.status(200).json({ ok: 'true '});
+        res.status(200).json({ ok: 'true'});
     } catch (error) {
         res.status(400).json({ ok: 'false' });
     }
