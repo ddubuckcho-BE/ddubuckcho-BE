@@ -30,6 +30,6 @@ router.get("/detail/gomodify/:postId", authMiddleware, controller.goModifyPosts)
 router.put("update/:postId", authMiddleware, controller.modifyPosts)
 
 // 게시물 삭제하기
-router.put("delete/:postId", authMiddleware, controller.deletePosts)
+router.delete("delete/:postId", authMiddleware, controller.deletePosts)
 
 module.exports = router;
