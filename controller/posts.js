@@ -13,16 +13,16 @@ module.exports.getPosts = async (req, res) => {
     const allPosts = await Posts.find().exec();
     const newAllPosts = [];
     const newAllPosts2 = [];
-    for (let post in allPosts) {
-      console.log(post)
-      if (post.like_id?.includes(user.loginId)) {
-        post.is_like = 'true'
-        newAllPosts.push(post);
-        newAllPosts2.push(post);
+    for (let i in allPosts) {
+      console.log(allPosts[i])
+      if (allPosts[i].like_id.includes(user.loginId)) {
+        allPosts[i].is_like = 'true'
+        newAllPosts.push(allPosts[i]);
+        newAllPosts2.push(allPosts[i]);
       } else {
-        post.is_like = 'false'
-        newAllPosts.push(post);
-        newAllPosts2.push(post);
+        allPosts[i] = 'false'
+        newAllPosts.push(allPosts[i]);
+        newAllPosts2.push(allPosts[i]);
       }
     }
 
