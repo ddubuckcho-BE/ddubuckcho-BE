@@ -9,11 +9,11 @@ module.exports.makeLikes = async (req, res) => {
     const thePost = await Posts.findOne({id: Number(post_id)})
     const count = thePost.like_count
     const id = thePost.like_id.push(user.loginId)
-    console.log(count, id)
+    console.log(count, id, thePost)
     
     await Posts.updateOne(
       { id: Number(post_id) },
-      { $set: { like_count: count += 1 , like_id: thePost.like_id} 
+      { $set: { like_count: count += 1 , like_id: [thePost.like_id]} 
     });
     
     const findPost  = await Posts.findOne({id: Number(post_id)})
@@ -30,7 +30,8 @@ module.exports.deleteLikes = async (req, res) => {
   try {
     const { user } = res.locals; 
     const { post_id } = req.params;
-    console.log(post_id)
+
+    const thePost = await Posts.findOne({id: Number(post_id)})
 
     await Posts.updateOne(
       { id: Number(post_id) },
