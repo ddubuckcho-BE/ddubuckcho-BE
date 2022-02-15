@@ -8,7 +8,7 @@ module.exports.makeLikes = async (req, res) => {
 
     await Posts.updateOne(
       { id: Number(post_id) },
-      { $set: { like_count: 10 , /*like_id:like_id.push(user.loginId)*/} 
+      { $set: { like_count: this.like_count += 1 , /*like_id:like_id.push(user.loginId)*/} 
     });
     
     const thePost  = await Posts.findOne({id: Number(post_id)})
