@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
   } else {
 
     const { authorization } = req.headers; // 프론트에서 대문자로 보내도 여기서는 소문자로 변환됨
-    console.log(authorization)
+    
     const [tokenType, tokenValue] = authorization.split(' '); // 공백을 기준으로 배열을 반환
     
     // if (tokenType !== 'Bearer') {

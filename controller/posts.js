@@ -14,6 +14,7 @@ module.exports.getPosts = async (req, res) => {
     const newAllPosts = [];
     const newAllPosts2 = [];
     for (let post in allPosts) {
+      console.log(post.like_id)
       if (post.like_id.includes(user.loginId)) {
         post.is_like = 'true'
         newAllPosts.push(post);
