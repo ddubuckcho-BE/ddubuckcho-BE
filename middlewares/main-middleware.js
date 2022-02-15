@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
   } else {
     
     const tokenValue = authorization // 공백을 기준으로 배열을 반환
-
+        console.log(tokenValue)
     try {
         const { userId } = jwt.verify(tokenValue, process.env.TOKENKEY); // 디코드에서 loginId 값만 암호화했으니
         Users.findById(userId)
