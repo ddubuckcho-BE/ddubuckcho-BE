@@ -20,7 +20,7 @@ module.exports.getPosts = async (req, res) => {
         newAllPosts.push(allPosts[i]);
         newAllPosts2.push(allPosts[i]);
       } else {
-        allPosts[i] = 'false'
+        allPosts[i].is_like = 'false'
         newAllPosts.push(allPosts[i]);
         newAllPosts2.push(allPosts[i]);
       }
