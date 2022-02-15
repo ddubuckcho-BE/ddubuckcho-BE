@@ -35,9 +35,9 @@ router.put("/update/:postId", authMiddleware, upload.array('editThumbnail'), con
 router.delete("/delete/:postId", authMiddleware, controller.deletePosts)
 
 // 게시물 좋아요
-router.post("/editlike", authMiddleware, controller2.makeLikes);
+router.put("/editLike", authMiddleware, controller2.makeLikes);
 
 // 게시물 좋아요 취소
-router.post("/deletelike", authMiddleware,  controller2.deleteLikes);
+router.put("/deleteLike", authMiddleware,  controller2.deleteLikes);
 
 module.exports = router;
