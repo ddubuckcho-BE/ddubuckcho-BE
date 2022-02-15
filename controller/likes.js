@@ -12,8 +12,8 @@ module.exports.makeLikes = async (req, res) => {
     
     await Posts.updateOne(
       { id: Number(post_id) },
-      { $set: { like_count: count += 1}} , { $push: { like_id: user.loginId } 
-    });
+      /*{ $set: { like_count: count += 1}}*/ , { $push: { like_id: user.loginId } }
+    );
     
     const findPost  = await Posts.findOne({id: Number(post_id)})
     const like_count = findPost.like_count

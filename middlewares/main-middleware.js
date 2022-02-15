@@ -3,20 +3,20 @@ const Users = require('../models/users');
 
 module.exports = (req, res, next) => {
   // authoriztion 참조
-  if (!req.headers) {  
-        next();
+  if (!req.headers.length) {  
+        console.log(req.headers)
   } else {
 
     const { authorization } = req.headers; // 프론트에서 대문자로 보내도 여기서는 소문자로 변환됨
     
     const [tokenType, tokenValue] = authorization.split(' '); // 공백을 기준으로 배열을 반환
     
-    // if (tokenType !== 'Bearer') {
-    //     res.status(401).send({
-    //       errorMessage: '로그인 후 사용하세요',
-    //     });
-    //     return;
-    //   }
+    if (tokenType !== 'Bearer') {
+        res.status(401).send({
+          errorMessage: '로그인 후 사용하세요',
+        });
+        return;
+      }
 
     try {
         const { userId } = jwt.verify(tokenValue, process.env.TOKENKEY); // 디코드에서 loginId 값만 암호화했으니
