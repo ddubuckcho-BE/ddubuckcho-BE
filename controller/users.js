@@ -22,7 +22,6 @@ const signup = async (req, res) => {
     }
 
     const existId = await Users.find({ loginId });
-    console.log(existId)
     if (existId.length) {
       res.status(400).send({
         message: '이미 가입된 아이디입니다.', 
@@ -66,11 +65,9 @@ const login = async (req, res) => {
       return;
     }
     const token = jwt.sign({ userId: user.userId }, process.env.TOKENKEY);
-    const name = user.name
-    console.log(name)
     res.json({
       token,
-      name,
+      loginId,
       ok: true,
       message: '로그인 성공',
     });
