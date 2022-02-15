@@ -66,11 +66,10 @@ const login = async (req, res) => {
       return;
     }
     const token = jwt.sign({ userId: user.userId }, process.env.TOKENKEY);
-    const name = user.name
-    console.log(name)
+    const loginId = user.loginId
     res.json({
       token,
-      name,
+      loginId,
       ok: true,
       message: '로그인 성공',
     });
