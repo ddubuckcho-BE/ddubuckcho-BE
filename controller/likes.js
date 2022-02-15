@@ -3,7 +3,7 @@ const Posts = require('../models/posts');
 module.exports.makeLikes = async (req, res) => {
   try {
     const { user } = res.locals;
-    const { post_id } = req.body;
+    const { post_id } = req.params;
     console.log(post_id)
 
     await Posts.updateOne(
@@ -24,7 +24,7 @@ module.exports.makeLikes = async (req, res) => {
 module.exports.deleteLikes = async (req, res) => {
   try {
     const { user } = res.locals;
-    const { post_id } = req.body;
+    const { post_id } = req.params;
     console.log(post_id)
 
     await Posts.updateOne(
@@ -34,7 +34,7 @@ module.exports.deleteLikes = async (req, res) => {
     
     const thePost = await Posts.findOne({id: Number(post_id)})
     const like_count = thePost.like_count
-    
+
     console.log(like_count)
     res.json({ like_count });
   } catch (error) {
