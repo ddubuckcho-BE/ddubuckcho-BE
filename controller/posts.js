@@ -1,5 +1,4 @@
 const Posts = require('../models/posts');
-const Likes = require('../models/likes');
 
 // 메인페이지로 줄 정보 (게시물 전체) - 50완
 module.exports.getPosts = async (req, res) => {
