@@ -31,14 +31,14 @@ module.exports.deleteLikes = async (req, res) => {
     const { user } = res.locals; 
     const { post_id } = req.params;
 
-    const thePost = await Posts.findOne({id: Number(post_id)})
+    // const thePost = await Posts.findOne({id: Number(post_id)})
 
     await Posts.updateOne(
       { id: Number(post_id) },
       { $set: { like_count: like_count -= 1, like_id:like_id.filter((i) => i !== user.loginId)} 
     });
     
-    const thePost = await Posts.findOne({id: Number(post_id)})
+    // const thePost = await Posts.findOne({id: Number(post_id)})
     const like_count = thePost.like_count
 
     console.log(like_count)
