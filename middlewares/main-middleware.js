@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   // authoriztion 참조
   const { authorization } = req.headers;  // 프론트에서 대문자로 보내도 여기서는 소문자로 변환됨
 
-  if (authorization == null || false) {  
+  if (authorization == (null || false) ) {  
         console.log('1'+authorization)
         next();
   } else {
