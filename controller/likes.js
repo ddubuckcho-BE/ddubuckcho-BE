@@ -15,11 +15,9 @@ module.exports.makeLikes = async (req, res) => {
       /*{ $set: { like_count: count += 1}}*/  { $push: { like_id: user.loginId } }
     );
     
-    const findPost  = await Posts.findOne({id: Number(post_id)})
-    const like_count = findPost.like_count
 
-    console.log(like_count)
-    res.json({ like_count });
+ 
+    res.json({ });
   } catch (error) {
     res.status(400).json({ ok: 'false' });
   }
@@ -34,14 +32,12 @@ module.exports.deleteLikes = async (req, res) => {
 
     await Posts.updateOne(
       { id: Number(post_id) },
-      { $set: { like_count: like_count -= 1, like_id:like_id.filter((i) => i !== user.loginId)} 
+      { $pull: { like_id: user.loginId}
     });
     
     // const thePost = await Posts.findOne({id: Number(post_id)})
-    const like_count = thePost.like_count
-
-    console.log(like_count)
-    res.json({ like_count });
+    
+    res.json({ });
   } catch (error) {
     res.status(400).json({ ok: 'false' });
   }
