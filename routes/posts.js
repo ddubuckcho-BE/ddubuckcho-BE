@@ -11,11 +11,13 @@ const _storage = multer.diskStorage({
 const upload = multer({ storage: _storage})
 
 const router = express.Router();
+const mainMiddleware = require("../middlewares/main-middleware");
 const authMiddleware = require("../middlewares/auth-middleware");
 const controller = require("../controller/posts");
+const controller2 = require("../controller/likes");
 
 // 게시물 모두 보여주기 (메인페이지)
-router.get("/post_list", controller.getPosts);
+router.get("/post_list", mainMiddleware, controller.getPosts);
 
 // 게시물 생성
 router.post("/post", authMiddleware, upload.single('thumbnail'), controller.makePosts);
@@ -31,5 +33,11 @@ router.put("/update/:postId", authMiddleware, upload.array('editThumbnail'), con
 
 // 게시물 삭제하기
 router.delete("/delete/:postId", authMiddleware, controller.deletePosts)
+
+// 게시물 좋아요
+router.post("/editlike", authMiddleware, controller2.makeLikes);
+
+// 게시물 좋아요 취소
+router.post("/deletelike", authMiddleware,  controller2.deleteLikes);
 
 module.exports = router;

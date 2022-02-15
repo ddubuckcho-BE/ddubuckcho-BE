@@ -1,14 +1,36 @@
 const Posts = require('../models/posts');
+const Likes = require('../models/likes');
 
 // 메인페이지로 줄 정보 (게시물 전체) - 50완
 module.exports.getPosts = async (req, res) => {
-  const sortByLike = await Posts.find().sort('-like_count').exec();
-  const sortByNew = await Posts.find().sort('-id').exec();
+  if (!res.locals) {
+    const a = await Posts.find().sort('-like_count').exec();
+    const b = await Posts.find().sort('-id').exec();
 
-  res.json({
-    sortByLike,
-    sortByNew,
-  });
+    res.json({ sortByLike, sortByNew });
+
+  } else {
+    const { user } = res.locals;
+    const allPosts = await Posts.find().exec();
+    const newAllPosts = [];
+    const newAllPosts2 = [];
+    for (let post in allPosts) {
+      if (post.like_id.includes(user.loginId)) {
+        post.is_like = true;
+        newAllPosts.push(post);
+        newAllPosts2.push(post);
+      } else {
+        post.is_like = 
+        newAllPosts.push(post);
+        newAllPosts2.push(post);
+      }
+    }
+
+    const sortByLike = newAllPosts.sort((a, b) => b.like_count - a.like_count);
+    const sortByNew = newAllPosts2.sort((a, b) => b.id - a.id);
+
+    res.json({ sortByLike, sortByNew });
+  }
 };
 
 // 새로운 게시물 생성 (db에 저장) - id가 어떤 변수 명으로 저장되는지 찾아야함
@@ -81,7 +103,7 @@ module.exports.modifyPosts = async (req, res) => {
       res.json({ ok: 'false' });
     }
   } else {
-    const thumbnail = `/images/${req.files[0].filename}`
+    const thumbnail = `/images/${req.files[0].filename}`;
     const post = await Posts.findOne({ id: Number(postId) });
 
     if (post.loginId === user.loginId) {
@@ -95,7 +117,6 @@ module.exports.modifyPosts = async (req, res) => {
       res.json({ ok: 'false' });
     }
   }
-  
 };
 
 // 게시물 삭제하기
