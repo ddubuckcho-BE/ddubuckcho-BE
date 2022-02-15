@@ -2,13 +2,15 @@ const Posts = require('../models/posts');
 
 // 메인페이지로 줄 정보 (게시물 전체) - 50완
 module.exports.getPosts = async (req, res) => {
-  if (!res.locals.loginId) {
+  if (!res.locals.user.loginId) {
+    console.log(res.locals.user)
     const sortByLike = await Posts.find().sort('-like_count').exec();
     const sortByNew = await Posts.find().sort('-id').exec();
 
     res.json({ sortByLike, sortByNew });
 
   } else {
+    console.log('2'+res.locals.user)
     const { user } = res.locals;
     const allPosts = await Posts.find().exec();
     const newAllPosts = [];
