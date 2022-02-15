@@ -2,39 +2,11 @@ const Posts = require('../models/posts');
 
 // 메인페이지로 줄 정보 (게시물 전체) - 50완
 module.exports.getPosts = async (req, res) => {
-  if (res.locals.user === undefined ) {
-    console.log(res.locals.user)
-    const sortByLike = await Posts.find().sort('-like_count').exec();
+    const sortByLike = await Posts.find().sort('-like_id.length').exec();
     const sortByNew = await Posts.find().sort('-id').exec();
 
     res.json({ sortByLike, sortByNew });
-
-  } else {
-    console.log('2'+res.locals.user)
-    const { user } = res.locals;
-    const allPosts = await Posts.find().exec();
-    const newAllPosts = [];
-    const newAllPosts2 = [];
-    for (let i in allPosts) {
-      console.log(allPosts[i])
-      if (allPosts[i].like_id.includes(user.loginId)) {
-        allPosts[i].is_like = 'true'
-        console.log(allPosts[i].is_like)
-        newAllPosts.push(allPosts[i]);
-        newAllPosts2.push(allPosts[i]);
-      } else {
-        allPosts[i].is_like = 'false'
-        console.log(allPosts[i].is_like)
-        newAllPosts.push(allPosts[i]);
-        newAllPosts2.push(allPosts[i]);
-      }
-    }
-
-    const sortByLike = newAllPosts.sort((a, b) => b.like_count - a.like_count);
-    const sortByNew = newAllPosts2.sort((a, b) => b.id - a.id);
-
-    res.json({ sortByLike, sortByNew });
-  }
+  
 };
 
 // 새로운 게시물 생성 (db에 저장) - id가 어떤 변수 명으로 저장되는지 찾아야함
