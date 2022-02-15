@@ -17,10 +17,12 @@ module.exports.getPosts = async (req, res) => {
       // console.log(allPosts[i])
       if (allPosts[i].like_id.includes(user.loginId)) {
         allPosts[i].is_like = 'true'
+        console.log(allPosts[i].is_like)
         newAllPosts.push(allPosts[i]);
         newAllPosts2.push(allPosts[i]);
       } else {
         allPosts[i].is_like = 'false'
+        console.log(allPosts[i].is_like)
         newAllPosts.push(allPosts[i]);
         newAllPosts2.push(allPosts[i]);
       }
