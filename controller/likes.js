@@ -23,7 +23,7 @@ module.exports.makeLikes = async (req, res) => {
 
 module.exports.deleteLikes = async (req, res) => {
   try {
-    const { user } = res.locals;
+    const { user } = res.locals; 
     const { post_id } = req.params;
     console.log(post_id)
 
