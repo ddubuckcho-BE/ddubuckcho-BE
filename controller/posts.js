@@ -15,11 +15,11 @@ module.exports.getPosts = async (req, res) => {
     const newAllPosts2 = [];
     for (let post in allPosts) {
       if (post.like_id.includes(user.loginId)) {
-        post.is_like = true;
+        post.is_like = 'true'
         newAllPosts.push(post);
         newAllPosts2.push(post);
       } else {
-        post.is_like = 
+        post.is_like = 'false'
         newAllPosts.push(post);
         newAllPosts2.push(post);
       }
