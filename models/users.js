@@ -34,11 +34,11 @@ UserSchema.pre('save', function( next ){ // 몽구스의 pre 메소드 save하�
   }
 }) 
 
-UserSchema.methods.checkPassword = function(plainPassword, cb) {
+UserSchema.methods.checkPassword = function(plainPassword, password, cb) {
 
-  bcrypt.compare(plainPassword, this.password, function(err, isMatch){ 
+  bcrypt.compare(plainPassword, password, function(err, isMatch){ 
     console.log(plainPassword)
-    console.log(this.password)
+    console.log(password)
     console.log(err)
     console.log(isMatch)
     if(err) return cb(err),     // 비밀번호가 다르면
