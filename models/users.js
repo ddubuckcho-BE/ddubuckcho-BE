@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const UserSchema = new mongoose.Schema({
   loginId: String,
@@ -14,5 +16,31 @@ UserSchema.virtual('userId').get(function () {
 UserSchema.set('toJSON', {
   virtuals: true,
 });
+
+UserSchema.pre('save', function( next ){ // 몽구스의 pre 메소드 save하기 전에 function
+  const user = this;
+  if(user.isModified('password')){                         // 패스워드를 바꿀 때만 암호화 
+    bcrypt.getSalt(saltRounds, function(err, salt){        // salt 생성
+      if(err) return next(err);
+  
+      bcrypt.hash(user.password, salt, function(err,hash){ // salt를 이용하여 비밀번호를 hash 암호화
+        if(err) return next(err);
+        user.password = hash;                              // 비밀번호 암호화로 변경
+        next();
+      })
+    })   
+  } else {
+    next();
+  }
+}) 
+
+UserSchema.methods.checkPassword = function(plainPassword, cb) {
+
+  bcrypt.compare(plainPassword, this.password, function(err, isMatch){ 
+    if(err) return cb(err),     // 비밀번호가 다르면
+    cb(null, isMatch)           // 비밀번호가 같으면
+  })
+
+}
 
 module.exports = mongoose.model('Users', UserSchema);
