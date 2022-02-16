@@ -66,14 +66,14 @@ const login = async (req, res) => {
       if(!isMatch)
       return res.status(400).json({ ok: false, message: '아이디 혹은 비밀번호를 확인해주세요' })
  
-
     const token = jwt.sign({ userId: user.userId }, process.env.TOKENKEY);
     res.json({
       token,
       loginId,
       ok: true,
       message: '로그인 성공',
-    });   });
+    });
+  });   
   } catch (err) {
     console.log(err);
     res.status(400).json({
