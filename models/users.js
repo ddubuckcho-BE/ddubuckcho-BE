@@ -36,7 +36,7 @@ UserSchema.pre('save', function( next ){ // 몽구스의 pre 메소드 save하�
 
 UserSchema.methods.checkPassword = function(plainPassword, password, cb) {
 
-  bcrypt.compare(plainPassword, password, function(err, isMatch){ 
+  bcrypt.compare(plainPassword, password, function(error, isMatch){ 
     console.log(plainPassword)
     console.log(password)
     console.log(error)
