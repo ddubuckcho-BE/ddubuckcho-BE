@@ -9,9 +9,11 @@ const makeComment = async (req, res) => {
     try {
         const { id } = await idSchema.validateAsync(req.params);
         const { comment } = await commentSchema.validateAsync(req.body);
+        const loginId = res.locals.user.loginId
         const name = res.locals.user.name
         await Comments.create({
             id,
+            loginId,
             name,
             comment
         });
