@@ -11,11 +11,13 @@ const makeComment = async (req, res) => {
         const { comment } = await commentSchema.validateAsync(req.body);
         const loginId = res.locals.user.loginId
         const name = res.locals.user.name
+        const date = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, '');
         await Comments.create({
             id,
             loginId,
             name,
-            comment
+            comment,
+            date
         });
         res.status(200).json({ ok: 'true', message: "등록 성공" });
     } catch (error) {
