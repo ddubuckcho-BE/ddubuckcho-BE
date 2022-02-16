@@ -62,7 +62,7 @@ const login = async (req, res) => {
       return res.status(400).json({ ok: false, message: '아이디 혹은 비밀번호를 확인해주세요' }); 
     }
 
-    user.checkPassword(password, user.password, (err, isMatch) => { // 입력한 비밀번호와 암호화한 비밀번호가 동일한지 체크
+    user.checkPassword(password, user.password, (isMatch) => { // 입력한 비밀번호와 암호화한 비밀번호가 동일한지 체크
       if(!isMatch)
       return res.status(400).json({ ok: false, message: '아이디 혹은 비밀번호를 확인해주세요' })
     });

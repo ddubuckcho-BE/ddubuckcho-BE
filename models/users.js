@@ -39,7 +39,7 @@ UserSchema.methods.checkPassword = function(plainPassword, password, cb) {
   bcrypt.compare(plainPassword, password, function(isMatch){ 
     console.log(plainPassword)
     console.log(password)
-    console.log(err)
+    // console.log(err)
     console.log(isMatch)
     // if(err) return cb(err),     // 비밀번호가 다르면
     cb(isMatch)           // 비밀번호가 같으면
