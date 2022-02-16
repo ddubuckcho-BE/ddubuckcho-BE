@@ -4,11 +4,9 @@ module.exports.makeLikes = async (req, res) => {
   try {
     const { user } = res.locals;
     const { post_id } = req.params;
-    console.log(post_id)
     
     const thePost = await Posts.findOne({id: Number(post_id)})
     const count = thePost.like_count
-    console.log(count, thePost)
     
     await Posts.updateOne(
       { id: Number(post_id) },
