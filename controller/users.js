@@ -63,6 +63,9 @@ const login = async (req, res) => {
     }
 
     user.checkPassword(password, user.password, (err, isMatch) => { // 입력한 비밀번호와 암호화한 비밀번호가 동일한지 체크
+    console.log(1, isMatch)
+    console.log(2, !isMatch)
+
       if(!isMatch)
       return res.status(400).json({ ok: false, message: '아이디 혹은 비밀번호를 확인해주세요' })
     });
