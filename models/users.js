@@ -20,7 +20,7 @@ UserSchema.set('toJSON', {
 UserSchema.pre('save', function( next ){ // 몽구스의 pre 메소드 save하기 전에 function
   const user = this;
   if(user.isModified('password')){                         // 패스워드를 바꿀 때만 암호화 
-    bcrypt.getSalt(saltRounds, function(err, salt){        // salt 생성
+    bcrypt.genSalt(saltRounds, function(err, salt){        // salt 생성
       if(err) return next(err);
   
       bcrypt.hash(user.password, salt, function(err,hash){ // salt를 이용하여 비밀번호를 hash 암호화
