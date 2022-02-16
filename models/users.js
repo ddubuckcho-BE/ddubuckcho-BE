@@ -41,8 +41,8 @@ UserSchema.methods.checkPassword = function(plainPassword, password, cb) {
     console.log(password)
     console.log(err)
     console.log(isMatch)
-    cb(err, isMatch)          // 비밀번호가 같으면
-    console.log(1, cb, err, isMatch)
+    if(err) return cb(err),     // 비밀번호가 다르면
+    cb(null, isMatch)           // 비밀번호가 같으면
   })
 
 }
