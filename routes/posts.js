@@ -23,7 +23,7 @@ router.get("/post_list", mainMiddleware, controller.getPosts);
 router.post("/post", authMiddleware, upload.single('thumbnail'), controller.makePosts);
 
 // 게시물 상세페이지
-router.get("/detail/:postId", controller.detailPosts)
+router.get("api/detail/:postId", controller.detailPosts)
 
 // 게시물 수정하기를 들어갈 수 있는 권한 확기 (수정)
 router.get("/detail/gomodify/:postId", authMiddleware, controller.goModifyPosts)
