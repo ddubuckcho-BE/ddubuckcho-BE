@@ -24,6 +24,10 @@ Back-end Library
 - cors
 - prettier
 
+Deploy
+- AWS EC2 (Ubuntu 18.04LTS)
+- AWS S3
+
 <br/>
 <br/>
 
