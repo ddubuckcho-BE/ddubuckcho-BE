@@ -19,7 +19,8 @@ const makeComment = async (req, res) => {
             comment,
             date
         });
-        res.status(200).json({ ok: 'true', message: "등록 성공" });
+        const data = { id, loginId, name, comment, date }
+        res.status(200).json({ ok: 'true', message: "등록 성공", data  });
     } catch (error) {
         res.status(400).json({ ok: 'false', message: "등록 실패" });
     }
