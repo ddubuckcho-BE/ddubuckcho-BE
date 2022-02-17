@@ -27,7 +27,11 @@ router.post(
 );
 
 // 게시물 상세페이지
+<<<<<<< HEAD
 router.get('/detail/:postId', controller.detailPosts);
+=======
+router.get("api/detail/:postId", controller.detailPosts)
+>>>>>>> parent of 0659215 (feat0217(3))
 
 // 게시물 수정하기를 들어갈 수 있는 권한 확기 (수정)
 router.get(
