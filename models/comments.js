@@ -6,7 +6,7 @@ const commentsSchema = new mongoose.Schema({
   loginId: String,
   name: String,
   comment: String,
-  date: String
+  date: String,
 });
 
 commentsSchema.plugin(AutoIncrement, { inc_field: 'commentId' });

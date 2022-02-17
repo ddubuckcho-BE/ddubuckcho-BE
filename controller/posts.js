@@ -2,12 +2,11 @@ const Posts = require('../models/posts');
 
 // 메인페이지로 줄 정보 (게시물 전체) - 50완
 module.exports.getPosts = async (req, res) => {
-    const sortByLike = await Posts.find().exec();
-    sortByLike.sort((a,b) => b.like_id.length - a.like_id.length);
-    const sortByNew = await Posts.find().sort('-id').exec();
+  const sortByLike = await Posts.find().exec();
+  sortByLike.sort((a, b) => b.like_id.length - a.like_id.length);
+  const sortByNew = await Posts.find().sort('-id').exec();
 
-    res.json({ sortByLike, sortByNew });
-  
+  res.json({ sortByLike, sortByNew });
 };
 
 // 새로운 게시물 생성 (db에 저장) - id가 어떤 변수 명으로 저장되는지 찾아야함
