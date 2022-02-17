@@ -11,13 +11,12 @@ const _storage = multer.diskStorage({
 const upload = multer({ storage: _storage})
 
 const router = express.Router();
-const mainMiddleware = require("../middlewares/main-middleware");
 const authMiddleware = require("../middlewares/auth-middleware");
 const controller = require("../controller/posts");
 const controller2 = require("../controller/likes");
 
 // 게시물 모두 보여주기 (메인페이지)
-router.get("/post_list", mainMiddleware, controller.getPosts);
+router.get("/post_list", controller.getPosts);
 
 // 게시물 생성
 router.post("/post", authMiddleware, upload.single('thumbnail'), controller.makePosts);
