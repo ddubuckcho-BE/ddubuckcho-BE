@@ -19,34 +19,16 @@ const controller2 = require('../controller/likes');
 router.get('/post_list', controller.getPosts);
 
 // 게시물 생성
-router.post(
-  '/post',
-  authMiddleware,
-  upload.single('thumbnail'),
-  controller.makePosts
-);
+router.post('/post', authMiddleware, upload.single('thumbnail'), controller.makePosts);
 
 // 게시물 상세페이지
-<<<<<<< HEAD
 router.get('/detail/:postId', controller.detailPosts);
-=======
-router.get("api/detail/:postId", controller.detailPosts)
->>>>>>> parent of 0659215 (feat0217(3))
 
 // 게시물 수정하기를 들어갈 수 있는 권한 확기 (수정)
-router.get(
-  '/detail/gomodify/:postId',
-  authMiddleware,
-  controller.goModifyPosts
-);
+router.get('/detail/gomodify/:postId', authMiddleware, controller.goModifyPosts);
 
 // 게시물 수정하기 완료 버튼을 눌렀을 때
-router.put(
-  '/update/:postId',
-  authMiddleware,
-  upload.array('editThumbnail'),
-  controller.modifyPosts
-);
+router.put('/update/:postId', authMiddleware, upload.array('editThumbnail'),controller.modifyPosts);
 
 // 게시물 삭제하기
 router.delete('/delete/:postId', authMiddleware, controller.deletePosts);

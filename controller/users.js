@@ -12,10 +12,9 @@ const signupSchema = Joi.object({
 // 회원가입
 const signup = async (req, res) => {
   try {
-    const { loginId, password, confirmPassword, name } =
-      await signupSchema.validateAsync(req.body);
+    const { loginId, password, confirmPassword, name } = await signupSchema.validateAsync(req.body);
     if (password !== confirmPassword) {
-      res.status(400).send({
+      res.status(400).json({
         message: '패스워드가 확인란과 동일하지 않습니다.',
       });
       return;
@@ -23,7 +22,7 @@ const signup = async (req, res) => {
 
     const existId = await Users.find({ loginId });
     if (existId.length) {
-      res.status(400).send({
+      res.status(400).json({
         message: '이미 가입된 아이디입니다.',
       });
       return;
@@ -31,9 +30,7 @@ const signup = async (req, res) => {
 
     const existName = await Users.find({ name });
     if (existName.length) {
-      res.status(400).send({
-        message: '이미 가입된 이름입니다.',
-      });
+      res.status(400).json({message: '이미 가입된 이름입니다.',});
       return;
     }
     const user = new Users({ loginId, password, name });

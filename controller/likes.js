@@ -5,13 +5,7 @@ module.exports.makeLikes = async (req, res) => {
     const { user } = res.locals;
     const { post_id } = req.params;
 
-    await Posts.updateOne(
-      { id: Number(post_id) },
-      /*{ $set: { like_count: count += 1}}*/ {
-        $push: { like_id: user.loginId },
-      }
-    );
-
+    await Posts.updateOne({ id: Number(post_id) },{ $push: { like_id: user.loginId }, });
     res.json({ ok: 'true' });
   } catch (error) {
     res.status(400).json({ ok: 'false' });
@@ -27,7 +21,6 @@ module.exports.deleteLikes = async (req, res) => {
       { id: Number(post_id) },
       { $pull: { like_id: user.loginId } }
     );
-
     res.json({ ok: 'true' });
   } catch (error) {
     res.status(400).json({ ok: 'false' });
